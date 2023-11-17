@@ -1,26 +1,33 @@
 const { validateRegister, buildPayload } = require('./stringUtils');
 const { send } = require('./wsUtils');
 const { nanoid } = require('nanoid')
+const Redis = require('redis')
 
 
 class WsActions {
-
-    constructor(ws){
+    static redisClient = Redis.createClient({
+        host:'redis-server',
+        port:6379
+      });
+    constructor(ws) {
         this.ws = ws;
     }
-    establish = (uuid) => {
+
+    static async connectRedis()
+    {
+        await WsActions.redisClient.connect();
+        console.log("established redis");
+    }
+    establish = async (uuid) => {
         let user = uuid ? uuid : nanoid();
         let isRegistered = false;
-        console.log("User uuid: " + uuid);
+        console.log(uuid? "Got user with UUID: " + uuid : "New user. Sending " + user + " UUID");
         if (uuid) {
             console.log("Check existing user")
-            // get from data base and instantiate object and if the user already has 
-            // name and email setup send that as a payload and change the action to registered   
-            isRegistered = connections.hasOwnProperty(user)
-            if (!isRegistered)
-                connections[user] = {}
+            await WsActions.redisClient.set(uuid, "Gay");
         }
         send(this.ws, buildPayload(user, isRegistered ? "registered" : "establish"));
+        
         return user;
     }
 

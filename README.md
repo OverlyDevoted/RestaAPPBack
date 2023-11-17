@@ -1,8 +1,9 @@
 # RestaAPPBack 
 
 ## Databse
-- MongoDB
-- Redis
+### Redis Setup 
+Installed docker image and connected back-end to the server.
+In the server `npm install redis`
 
 ## Implemented and WIP Actions
 - [x] 'establish' connection and check if register againts databaes
