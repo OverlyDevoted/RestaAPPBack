@@ -5,7 +5,10 @@ const { nanoid } = require('nanoid')
 
 class WsActions {
 
-    static establish = (ws, uuid) => {
+    constructor(ws){
+        this.ws = ws;
+    }
+    establish = (uuid) => {
         let user = uuid ? uuid : nanoid();
         let isRegistered = false;
         console.log("User uuid: " + uuid);
@@ -17,18 +20,18 @@ class WsActions {
             if (!isRegistered)
                 connections[user] = {}
         }
-        send(ws, buildPayload(user, isRegistered ? "registered" : "establish"));
+        send(this.ws, buildPayload(user, isRegistered ? "registered" : "establish"));
         return user;
     }
 
-    static register = (ws, uuid, username, email) => {
+    register = (uuid, username, email) => {
         console.log(`User data. Username: ${username} , Email: ${email}`)
         //data validation here
         const payload = validateRegister(username, email)
         let action = "registered"
         if (payload)
             action = "failed"
-        send(ws, buildPayload(uuid, action, JSON.stringify(payload)));
+        send(this.ws, buildPayload(uuid, action, JSON.stringify(payload)));
     }
 }
 
