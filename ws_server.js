@@ -6,8 +6,10 @@ const wss = new ws({ port: 8080 });
 WsActions.connectRedis();
 
 console.log("Server turned on port 8080")
-
+counter = 0;
 wss.on('connection', async function connection(ws) {
+    counter++;
+    console.log("Received connection: " + counter);
     const connection = new WsActions(ws);
     ws.on('error', console.error);
     ws.on('message', function message(data) {

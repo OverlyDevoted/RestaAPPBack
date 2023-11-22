@@ -15,8 +15,15 @@ class WsActions {
 
     static async connectRedis()
     {
-        await WsActions.redisClient.connect();
-        console.log("established redis");
+        try {
+            await WsActions.redisClient.connect();
+            console.log("established redis");
+        }
+        catch(e)
+        {
+            console.log("could not connect to redis " + e)
+        }
+        
     }
     establish = async (uuid) => {
         let user = uuid ? uuid : nanoid();
@@ -24,7 +31,8 @@ class WsActions {
         console.log(uuid? "Got user with UUID: " + uuid : "New user. Sending " + user + " UUID");
         if (uuid) {
             console.log("Check existing user")
-            await WsActions.redisClient.set(uuid, "Gay");
+
+            // await WsActions.redisClient.set(uuid, "Gay");
         }
         send(this.ws, buildPayload(user, isRegistered ? "registered" : "establish"));
         

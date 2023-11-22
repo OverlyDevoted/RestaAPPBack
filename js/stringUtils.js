@@ -1,4 +1,4 @@
-const EMAIL_REGEX = /^[A-z,0-9]*@[A-z]*\.[a-z]*$/
+const EMAIL_REGEX = /^[A-z,0-9]*@[A-z]*\.[a-z]+$/
 /**
  * Checks if register data passes the requirements.
  * @param {String} name Username provided from the client. It will be used to display player in the leaderboards and such. 
