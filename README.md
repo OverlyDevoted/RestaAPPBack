@@ -1,6 +1,8 @@
 # RestaAPPBack 
 
 ## Databse
+Docker image for database would have to get rebuilt for production at image `redis-stack-server`
+
 ### Redis Setup 
 Installed docker image and connected back-end to the server.
 In the server `npm install redis`

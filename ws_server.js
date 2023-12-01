@@ -1,9 +1,11 @@
 const ws = require('ws').Server
 const { WsActions } = require('./js/wsActions')
-
+const { RedisData } = require('./js/redisHandler')
 const wss = new ws({ port: 8080 });
 
-WsActions.connectRedis();
+setTimeout(() => {
+    RedisData.connectRedis();
+}, 2000);
 
 console.log("Server turned on port 8080")
 counter = 0;

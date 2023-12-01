@@ -1,3 +1,8 @@
+Docker images
+[redis/redis-stack for DEV/TST or](https://hub.docker.com/r/redis/redis-stack) 
+[redis/redis-stack-server for PRD](https://hub.docker.com/r/redis/redis-stack-server)
+
+
 # Redis
 ## `.set(key, value)`
 Sets a key-value pair. Anything we set in redis will be of type `string` by default

@@ -1,30 +1,14 @@
 const { validateRegister, buildPayload } = require('./stringUtils');
 const { send } = require('./wsUtils');
 const { nanoid } = require('nanoid')
-const Redis = require('redis')
-
 
 class WsActions {
-    static redisClient = Redis.createClient({
-        host:'redis-server',
-        port:6379
-      });
+    
     constructor(ws) {
         this.ws = ws;
     }
 
-    static async connectRedis()
-    {
-        try {
-            await WsActions.redisClient.connect();
-            console.log("established redis");
-        }
-        catch(e)
-        {
-            console.log("could not connect to redis " + e)
-        }
-        
-    }
+    
     establish = async (uuid) => {
         let user = uuid ? uuid : nanoid();
         let isRegistered = false;
