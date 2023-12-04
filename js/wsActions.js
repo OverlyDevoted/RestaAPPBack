@@ -1,8 +1,8 @@
-const { validateRegister, buildPayload } = require('./stringUtils');
-const { send } = require('./wsUtils');
-const { nanoid } = require('nanoid')
+import { validateRegister, buildPayload } from './stringUtils.js';
+import { send } from './wsUtils.js';
+import { nanoid } from 'nanoid';
 
-class WsActions {
+export class WsActions {
     
     constructor(ws) {
         this.ws = ws;
@@ -34,4 +34,3 @@ class WsActions {
     }
 }
 
-module.exports = {WsActions}

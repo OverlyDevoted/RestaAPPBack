@@ -9,7 +9,7 @@ const EMAIL_REGEX = /^[A-z,0-9]*@[A-z]*\.[a-z]+$/
  * TODO: Profanity check.
  * @returns {Object} Returns a payload if any of the inputs don't pass requirements.
  */
-const validateRegister = (name, email) =>{
+export const validateRegister = (name, email) =>{
     let payload = ""
     if(name.length > 12)
         payload += "Name too long"
@@ -32,8 +32,6 @@ const validateRegister = (name, email) =>{
  * @param {String | null} payload Data required for action to be processed/performed. If !payload "none" is sent instead   
  * @returns The built payload message suitable to be sent to the client 
  */
-const buildPayload = (user, action, payload) => {
+export const buildPayload = (user, action, payload) => {
     return `{"uuid":"${user}","action":"${action}","payload":` + (payload? payload : "\"none\"") +`}`
 }
-
-module.exports = {validateRegister, buildPayload}

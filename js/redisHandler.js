@@ -1,5 +1,5 @@
-const Redis = require('redis')
-class RedisData {
+import Redis from 'redis'
+export class RedisData {
     static redisUp = false;
     static redisClient = Redis.createClient({
         host: 'redis-server',
@@ -26,5 +26,3 @@ class RedisData {
         }
     }
 }
-
-module.exports = { RedisData }

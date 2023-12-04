@@ -8,6 +8,7 @@
     "redis-om": "^0.4.3",
     "ws": "^8.14.2"
   },
+  "type": "module",
   "scripts": {
     "ngrok": "ngrok tcp 8080",
     "start": "nodemon ./ws_server.js"

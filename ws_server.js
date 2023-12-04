@@ -1,14 +1,18 @@
-const ws = require('ws').Server
-const { WsActions } = require('./js/wsActions')
-const { RedisData } = require('./js/redisHandler')
-const wss = new ws({ port: 8080 });
+import WebSocket, { WebSocketServer } from 'ws'
+import { WsActions } from './js/wsActions.js'
+import { RedisData } from './js/redisHandler.js'
+const wss = new WebSocketServer({ port: 8080 });
 
-setTimeout(() => {
-    RedisData.connectRedis();
-}, 2000);
+try {
+    await RedisData.connectRedis();
+}
+catch (err) {
+    console.log("Unexpected error while connecting to REDIS "+err);
+}
+
 
 console.log("Server turned on port 8080")
-counter = 0;
+let counter = 0;
 wss.on('connection', async function connection(ws) {
     counter++;
     console.log("Received connection: " + counter);
