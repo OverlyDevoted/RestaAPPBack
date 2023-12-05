@@ -7,7 +7,7 @@ try {
     await RedisData.connectRedis();
 }
 catch (err) {
-    console.log("Unexpected error while connecting to REDIS "+err);
+    console.log("Unexpected error while connecting to REDIS " + err);
 }
 
 
@@ -19,16 +19,25 @@ wss.on('connection', async function connection(ws) {
     const connection = new WsActions(ws);
     ws.on('error', console.error);
     ws.on('message', function message(data) {
-        const data_obj = JSON.parse(data);
-        console.log(data_obj);
+        let data_obj;
+        try {
+            data_obj = JSON.parse(data);
+            console.log(data_obj);
+        }
+        catch (err) {
+            console.error("Could not parse request, bad data.");
+            connection.error();
+            return;
+        }
         switch (data_obj.action) {
             case "establish":
                 connection.establish(data_obj.uuid);
                 break;
             case "register":
-                connection.register(data_obj.uuid, data_obj.payload.name, data_obj.payload.email);
+                connection.register(data_obj);
                 break;
             default:
+                connection.error("Bad Request. Every request must contain action parameter and appropriate data for the actions.");
                 break;
         }
     });

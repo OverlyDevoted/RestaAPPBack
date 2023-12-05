@@ -11,6 +11,7 @@
   "type": "module",
   "scripts": {
     "ngrok": "ngrok tcp 8080",
-    "start": "nodemon ./ws_server.js"
+    "start": "nodemon ./ws_server.js",
+    "rtest": "nodemon ./redis_playground/server.js"
   }
 }
