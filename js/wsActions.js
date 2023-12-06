@@ -10,11 +10,11 @@ export class WsActions {
 
     async error(err) {
         console.error("Bad request was attempted");
-        await send(this.ws, "{\"status\":\"500\", \"message\":\"" + err + "\"}")
+        await send(this.ws, "{\"action\":\"error\", \"message\":\"" + err + "\"}")
     }
     catchErr = async (func, arg, err) => {
+        console.time("Action took ")
         try {
-            console.log("Error catcher");
             await func(arg);
         }
         catch (error) {
@@ -26,6 +26,7 @@ export class WsActions {
                 console.error("Could not notify user: " + error);
             }
         }
+        console.timeEnd("Action took ")
     }
 
     /**
@@ -43,7 +44,6 @@ export class WsActions {
             if (uuid) {
                 console.log("Check existing user")
             }
-            throw new Error("Erorras");
             send(this.ws, buildPayload(user, isRegistered ? "registered" : "establish"));
             return user;
         }, uuid, "Could not establish user")
@@ -56,7 +56,7 @@ export class WsActions {
             const payload = validateRegister(username, email)
             let action = "registered"
             if (payload)
-                action = "failed"
+                action = "error"
             send(this.ws, buildPayload(uuid, action, JSON.stringify(payload)));
         }, data, "Could not register user");
     }

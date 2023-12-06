@@ -9,17 +9,17 @@ const EMAIL_REGEX = /^[A-z,0-9]*@[A-z]*\.[a-z]+$/
  * TODO: Profanity check.
  * @returns {Object} Returns a payload if any of the inputs don't pass requirements.
  */
-export const validateRegister = (name, email) =>{
+export const validateRegister = (name, email) => {
     let payload = ""
-    if(name.length > 12)
+    if (name.length > 12)
         payload += "Name too long"
-    else if(name.length < 3)
+    else if (name.length < 3)
         payload += "Name too short"
     let isEmail = EMAIL_REGEX.test(email);
     console.log("Is email? " + isEmail);
-    if(email.length < 5)
+    if (email.length < 5)
         payload += ":Email too short"
-    else if(!EMAIL_REGEX.test(email))
+    else if (!EMAIL_REGEX.test(email))
         payload += ":Not a email"
     console.log(payload)
     return payload
@@ -33,5 +33,19 @@ export const validateRegister = (name, email) =>{
  * @returns The built payload message suitable to be sent to the client 
  */
 export const buildPayload = (user, action, payload) => {
-    return `{"uuid":"${user}","action":"${action}","payload":` + (payload? payload : "\"none\"") +`}`
+    return `{"uuid":"${user}","action":"${action}","payload":` + (payload ? payload : "\"none\"") + `}`
+}
+
+const prependZero = (num) => {
+    return num < 10 ? "0" + num : num;
+}
+export const getTimestamp = () => {
+    const date = new Date();
+    let result = date.getFullYear() + "/";
+    result += prependZero(date.getMonth()) + "/";
+    result += prependZero(date.getDate()) + "/ ";
+    result += prependZero(date.getHours()) + ":";
+    result += prependZero(date.getMinutes()) + ":";
+    result += prependZero(date.getSeconds());
+    return result;
 }

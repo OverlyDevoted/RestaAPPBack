@@ -1,6 +1,7 @@
 {
   "dependencies": {
     "cors": "^2.8.5",
+    "date-fns": "^2.30.0",
     "express": "^4.18.2",
     "http-proxy": "^1.18.1",
     "nanoid": "^3.0.0",
@@ -12,6 +13,6 @@
   "scripts": {
     "ngrok": "ngrok tcp 8080",
     "start": "nodemon ./ws_server.js",
-    "rtest": "nodemon ./redis_playground/server.js"
+    "rtest": "nodemon ./playground/redis/server.js"
   }
 }
