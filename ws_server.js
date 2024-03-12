@@ -1,15 +1,8 @@
 import WebSocket, { WebSocketServer } from 'ws'
 import { WsActions } from './js/wsActions.js'
-import { RedisData } from './js/redisHandler.js'
 import { getTimestamp } from './js/stringUtils.js'
 const wss = new WebSocketServer({ port: 8080 });
 
-try {
-    await RedisData.connectRedis();
-}
-catch (err) {
-    console.log("Unexpected error while connecting to REDIS " + err);
-}
 
 
 console.log("Server turned on port 8080")
@@ -24,7 +17,7 @@ wss.on('connection', async function connection(ws) {
         try {
             data_obj = JSON.parse(data);
             console.log("Received data is " + new Blob([data]).size + " bytes");
-            //console.log(data_obj);
+            console.log(data_obj);
         }
         catch (err) {
             console.error("Could not parse request, bad data.");

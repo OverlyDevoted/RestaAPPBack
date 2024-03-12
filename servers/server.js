@@ -1,17 +1,19 @@
 const express = require('express');
-const path = require('path');
+const { createServer } = require('node:http');
+const { join } = require('node:path');
 
-const cors = require('cors')
-const app = new express();
+const app = express();
+const server = createServer(app);
+const io = new Server(server);
 
-process.title = "RestaAR";
-app.use(cors());
-app.use(express.json());
-app.get('/api/test', function (request, response) {
-    console.log("Got request")
-    return response.json({response:"MF"})
+app.get('/', (req, res) => {
+  res.sendFile(join(__dirname, 'index.html'));
 });
 
-app.listen(3000, function () {
-    console.log("Demo running at http://localhost:3000/");
+io.on('connection', (socket) => {
+  console.log('a user connected');
+});
+
+server.listen(3000, () => {
+  console.log('server running at http://localhost:3000');
 });
