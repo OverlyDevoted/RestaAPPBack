@@ -3,12 +3,7 @@ const cors = require("cors");
 const mongoose = require("mongoose");
 
 require("dotenv").config();
-const { v4: uuid } = require("uuid");
-const profanityFilter = require("./utils/profanityFilter.js");
-
-const app = express();
-app.use(express.json());
-app.use(cors());
+const userRouter = require("./routers/user.js");
 
 mongoose
   .connect(process.env.MONGO_DB_CONNECTION)
@@ -18,13 +13,12 @@ mongoose
   .catch((e) => {
     console.log("Could not connect DB", e);
   });
-app.post("/register", (req, res) => {
-  const { username, email } = req.body;
-  if (profanityFilter.isProfane(username) || profanityFilter.isProfane(email)) {
-    return res.status(409).json({ error: "Profane credentials" });
-  }
-  return res.json({ uuid: uuid() });
-});
+
+const app = express();
+app.use(express.json());
+app.use(cors());
+
+app.use(userRouter);
 
 app.post("/saveqr/:id", (req, res) => {
   const { id: qrId } = req.params;
@@ -33,7 +27,8 @@ app.post("/saveqr/:id", (req, res) => {
   }
 });
 app.get("/ping", (req, res) => {
-  return res.send("OK");
+  console.log("Pinged");
+  return res.send({ action: "working", uuid: "", payload: "" });
 });
 app.listen(3000, () => {
   console.log("Server running at http://localhost:3000");
