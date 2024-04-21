@@ -1,5 +1,3 @@
-const wss = require("./ws_server.js");
-
 const express = require("express");
 const cors = require("cors");
 const mongoose = require("mongoose");
