@@ -46,7 +46,7 @@ app.get("/ping", async (req, res) => {
       .status(403)
       .json({
         action: "invalidUUID",
-        message: "You must resubmit your register account",
+        message: "Įvyko klaida su jūsų paskyra. Pateikite duomenys iš naujo",
       });
 
   return res.send({ action: "working", uuid: "", payload: "" });
