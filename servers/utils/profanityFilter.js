@@ -1,5 +1,5 @@
 const fs = require("fs");
-const data = fs.readFileSync("./servers/data/profane.json", "utf8");
+const data = fs.readFileSync("./data/profane.json", "utf8");
 let profanityList = JSON.parse(data);
 
 profanityList = profanityList.map((word) => word.toLowerCase())

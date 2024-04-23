@@ -27,11 +27,12 @@ module.exports.UPLOAD = async (req, res) => {
 
     const responseSave = await image.save();
     console.log(responseSave);
+    console.log("Successfully uploaded an image");
     // File was uploaded successfully
-    res.json({ message: "File uploaded successfully." });
+    return res.json({ message: "File uploaded successfully." });
   } catch (e) {
     console.log(e);
-    res
+    return res
       .status(500)
       .json({ message: "something went wrong while uploading image" });
   }
@@ -54,7 +55,7 @@ module.exports.GET_IMAGES = async (req, res) => {
   
     if (!page || page < 1)
       return res.status(500).json({ message: "Innapropriate page number" });
-    const images = await ImageModel.find()
+    const images = await ImageModel.find({isVerified:true})
       .skip(9 * (page - 1))
       .limit(9);
     if (!images.length)

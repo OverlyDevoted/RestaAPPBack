@@ -25,10 +25,19 @@ app.use(userRouter);
 app.use(imageRouter);
 app.use(scanRouter);
 
+app.get("/",(req,res)=>{
+  return res.json("OK")
+});
+
 app.get("/ping", (req, res) => {
-  console.log("Pinged");
+  const {uuid} = req.query;
+  if(uuid)
+    console.log(uuid, "user pinged");
+  else
+    console.log("Unregistered user pinged");
   return res.send({ action: "working", uuid: "", payload: "" });
 });
-app.listen(3000, () => {
+
+app.listen(process.env.PORT, () => {
   console.log("Server running at http://localhost:3000");
 });
