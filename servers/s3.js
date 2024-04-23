@@ -33,3 +33,11 @@ module.exports.getFileStream = (fileKey) => {
   return s3.getObject(downloadParams).createReadStream()
 }
 // a function for downloading a file from s3
+
+module.exports.deleteObject = (fileKey) => {
+  const deleteParams = {
+    Key: fileKey,
+    Bucket: process.env.AWS_BUCKET_NAME
+  }
+  return s3.deleteObject(deleteParams).promise()
+}
