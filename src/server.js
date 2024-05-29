@@ -8,6 +8,8 @@ const imageRouter = require("./routers/image.js");
 const scanRouter = require("./routers/scan.js");
 const UserModel = require("./models/user.js");
 
+console.log(process.env.MONGO_DB_CONNECTION);
+
 mongoose
   .connect(process.env.MONGO_DB_CONNECTION)
   .then(() => {
@@ -42,12 +44,10 @@ app.get("/ping", async (req, res) => {
 
   const response = await UserModel.findOne({ uuid });
   if (!response)
-    return res
-      .status(403)
-      .json({
-        action: "invalidUUID",
-        message: "Įvyko klaida su jūsų paskyra. Pateikite duomenys iš naujo",
-      });
+    return res.status(403).json({
+      action: "invalidUUID",
+      message: "Įvyko klaida su jūsų paskyra. Pateikite duomenys iš naujo",
+    });
 
   return res.send({ action: "working", uuid: "", payload: "" });
 });

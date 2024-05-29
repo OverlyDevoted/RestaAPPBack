@@ -1,4 +1,4 @@
-const profanityFilter = require('./../servers/utils/profanityFilter.js');
+const profanityFilter = require("./profanityFilter.js");
 
 const EMAIL_REGEX = /^[A-z,0-9]*@[A-z]*\.[a-z]+$/;
 const STRING_REGEX = /^[A-z,0-9]{4,20}$/;

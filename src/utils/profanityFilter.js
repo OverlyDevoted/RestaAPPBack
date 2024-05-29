@@ -1,8 +1,8 @@
 const fs = require("fs");
-const data = fs.readFileSync("./data/profane.json", "utf8");
+const data = fs.readFileSync("./src/data/profane.json", "utf8");
 let profanityList = JSON.parse(data);
 
-profanityList = profanityList.map((word) => word.toLowerCase())
+profanityList = profanityList.map((word) => word.toLowerCase());
 
 const Filter = require("bad-words");
 const profanityFilter = new Filter();

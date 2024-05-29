@@ -1,9 +1,9 @@
 const { v4: uuidv4 } = require("uuid");
-const UserModel = require("../models/user");
-const { validateRegister } = require("./../../js/stringUtils.js");
-const ImageModel = require("../models/image.js");
-const { deleteObject } = require("../s3.js");
-const ScanModel = require("../models/scan.js");
+const UserModel = require("./../models/user.js");
+const { validateRegister } = require("./../utils/stringUtils.js");
+const ImageModel = require("./../models/image.js");
+const { deleteObject } = require("./../utils/s3.js");
+const ScanModel = require("./../models/scan.js");
 module.exports.CREATE_USER = async (req, res) => {
   try {
     const { username, email } = req.body;
